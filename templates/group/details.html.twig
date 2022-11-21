@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group {{ group.name }}{% endblock %}
+
+{# {% block stylesheets %}
+	{{ encore_entry_link_tags('dealCreate') }}
+{% endblock %} #}
+
+{% block body %}
+	<div class="uk-container">
+		<h2>{{ group.name }}</h2>
+		
+		<div class="uk-child-width-1-3@m" uk-grid>
+			{% for deal in group.deals %}
+				<div>
+					<div class="uk-card uk-card-default uk-card-small">
+						<div class="uk-card-media-top">
+							<img src="{{ deal.image }}" class="uk-align-center" style="height:250px;" alt="">
+						</div>
+						<div class="uk-card-body">
+							<h3 class="uk-card-title">{{ deal.title }}</h3>
+							<p>{{ deal.price }} €</p>
+							<p class="uk-text-truncate">{{ deal.description }}<p>
+						</div>
+						<div class="uk-card-footer">
+							<a class="uk-button uk-button-primary uk-align-right" href="{{ path("deal_details", {id: deal.id}) }}">Details</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	{# {% for deal in group.deals %}
+		<div class="uk-card uk-card-default uk-card-body uk-width-1-4@m">
+			<div class="uk-card-media-top">
+				<img src="{{ deal.image }}" alt="">
+			</div>
+			<div class="uk-card-body">
+				<h3 class="uk-card-title">{{ deal.title }}</h3>
+				<p>{{ deal.description }}</p>
+				<a class="uk-button uk-button-primary" href="{{ path("deal_details", {id: deal.id}) }}">Details</a>
+			</div>
+		</div>
+	{% endfor %} #}
+{% endblock %}
+
+{# {% block javascripts %}
+	{{ encore_entry_script_tags('dealCreate') }}
+{% endblock %} #}

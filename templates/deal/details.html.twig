@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ deal.title }}{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('dealDetail') }}
+{% endblock %}
+
+{% block body %}
+	<article class="uk-container">
+		<h1 class="uk-article-title">
+			{{ deal.title }} {% if deal.expired %}[Expired]{% endif %}
+			{% if is_granted("ROLE_USER") %}
+				<span id="save" data-id="{{ deal.id }}">{{ isVoted ? '★' : '☆' }}</span>
+			{% endif %}
+		</h1>
+		{# <section class="uk-grid">
+			<div>
+				<img src="{{ deal.image }}" style="height:300px;"/>
+			</div>
+
+			<div>
+				<button id="report" data-id="{{ deal.id }}" class="uk-button uk-button-danger">
+					<span uk-icon="icon: warning"></span>
+					Report this deal</button>
+					<button id="expired"  data-id="{{ deal.id }}" class="uk-button uk-button-primary" {% if deal.expired %}disabled{% endif %}
+					>Is expired</button>
+					{% if is_granted('ROLE_USER') %}
+						<div class="uk-button-group">
+							<button class="uk-button uk-button-danger" id="btn-vote-down" data-id="{{ deal.id }}">-</span></button>
+							<button class="uk-button uk-button-default" id="vote-number" disabled>{{ deal_rating }}</button>
+							<button class="uk-button uk-button-primary" id="btn-vote-up" data-id="{{ deal.id }}">+</span></button>
+						</div>
+					{% endif %}
+					
+			</div>
+
+			<dl class="uk-description-list">
+				<dt>Normal Price</dt>
+				<dd>{{ deal.normalPrice }}
+					$</dd>
+				<dt>Price</dt>
+				<dd>{{ deal.price }}
+					$</dd>
+				<dt>Delivery Cost</dt>
+				<dd>{{ deal.deliveryCost }}
+					$</dd>
+				<dt>Discount code</dt>
+				<dd>{{ deal.discountCode }}</dd>
+				<dt>Description</dt>
+				<dd>
+					{{ deal.postedAt|date("d/m/Y") }}
+					<br/>
+					{{ deal.description }}
+				</dd>
+				<dt>Groups</dt>
+				<dd>
+					<ul>
+						{% for group in deal.groups %}
+							<li>{{ group.name }}</li>
+						{% endfor %}
+					</ul>
+				</dd>
+			</dl>
+		</section> #}
+
+		<div class="uk-child-width-1-2@m" uk-grid>
+			<div>
+				<img class="uk-align-center" src="{{ deal.image }}" style="max-height:500px;"/>
+			</div>
+			<div>
+				<div class="uk-margin-small">
+					<a class="uk-button uk-button-primary" href="{{ deal.url }}">See the product</a>
+				</div>
+				{% if is_granted('ROLE_USER') %}
+					<div class="uk-button-group">
+						<button class="uk-button uk-button-danger" id="btn-vote-down" data-id="{{ deal.id }}"><span uk-icon="icon: minus"></span></button>
+						<button class="uk-button uk-button-default" id="vote-number" disabled>{{ deal_rating }}</button>
+						<button class="uk-button uk-button-primary" id="btn-vote-up" data-id="{{ deal.id }}"><span uk-icon="icon: plus"></span></button>
+					</div>
+				{% endif %}
+				<dl class="uk-description-list">
+					<dt>Normal Price</dt>
+					<dd>{{ deal.normalPrice }}
+						$</dd>
+					<dt>Price</dt>
+					<dd>{{ deal.price }}
+						$</dd>
+					<dt>Delivery Cost</dt>
+					<dd>{{ deal.deliveryCost }}
+						$</dd>
+					<dt>Discount code</dt>
+					<dd>{{ deal.discountCode }}</dd>
+					<dt>Description</dt>
+					<dd>
+						{{ deal.postedAt|date("d/m/Y") }}
+						<br/>
+						{{ deal.description }}
+					</dd>
+					<dt>Groups</dt>
+					<dd>
+						<ul>
+							{% for group in deal.groups %}
+								<li>{{ group.name }}</li>
+							{% endfor %}
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div>
+				<div>
+					<button id="report" data-id="{{ deal.id }}" class="uk-button uk-button-danger">
+						<span uk-icon="icon: warning"></span>
+						Report this deal
+					</button>
+					{% if is_granted("ROLE_USER") %}
+						<button id="expired" data-id="{{ deal.id }}" class="uk-button uk-button-primary" {% if deal.expired %}disabled{% endif %}>
+							<span uk-icon="icon: ban"></span>
+							Is expired
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	
+		<hr class="uk-divider-icon"/>
+	
+		<section>
+			<h3>Comments</h3>
+			{% if is_granted("ROLE_USER") %}
+				{{ form_start(form) }}
+				<div class="uk-margin">
+					{{ form_widget(form.text, { 'attr':{
+											'class':'uk-textarea',
+											'rows':'5',
+											'placeholder':'Add a comment'
+										}
+									})
+								}}
+
+					{{ form_row(form.submit, { 'label':'Submit me', 'attr':{'class':'uk-button uk-button-primary uk-margin-small-top'} }) }}
+
+					{{ form_rest(form) }}
+				</div>
+				{{ form_end(form) }}
+			{% endif %}
+
+			<table class="uk-table uk-table-divider">
+				<tbody>
+					{% for comment in comments %}
+						{# <tr>
+							<td>
+								<header class="uk-comment-header">
+									<h4 class="uk-comment-title">
+										{% if comment.user.username is empty %}
+											Anonymous
+										{% else %}
+											{{ comment.user.username }}
+										{% endif %}
+									</h4>
+									<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+										<li>
+											<a href="#">{{ comment.postedAt|date('d/m/Y') }}</a>
+										</li>
+									</ul>
+								</header>
+								<div class="uk-comment-body">{{ comment.text }}</div>
+							</td>
+						</tr> #}
+
+						<tr>
+							<td>
+								<div class="uk-comment">
+									<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+										<div class="uk-width-auto">
+											{% if comment.user.avatar == '' %}
+												<img class="uk-comment-avatar" src="https://www.lavoixduconsommateur.org/images/default_profil.png" width="80" height="80" alt="">
+											{% else %}
+												<img class="uk-comment-avatar" src="{{ comment.user.avatar }}" width="80" height="80" alt="">
+											{% endif %}
+										</div>
+										<div class="uk-width-expand">
+											<h4 class="uk-comment-title uk-margin-remove">
+												{% if comment.user.username is empty %}
+													Anonymous
+												{% else %}
+													{{ comment.user.username }}
+												{% endif %}
+											</h4>
+											<ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+												<li>{{ comment.postedAt|date('d/m/Y') }}</li>
+											</ul>
+										</div>
+									</header>
+									<div class="uk-comment-body">
+										<p>{{ comment.text }}</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</section>
+	</article>
+{% endblock %}
+
+{% block javascripts %}{{ encore_entry_script_tags('dealDetail') }}{% endblock %}

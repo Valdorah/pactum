@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block body %}
+	<div class="uk-container">
+		<ul uk-tab>
+			<a href="{{ path('home') }}">News</a>
+			<a href="{{ path('home') }}?hot=true">Hot</a>
+		</ul>
+		<div class="uk-child-width-1-3@m" uk-grid>
+			{% for deal in deals %}
+				<div>
+					<div class="uk-card uk-card-default uk-card-small">
+						<div class="uk-card-media-top">
+							<img src="{{ deal.image }}" class="uk-align-center" style="height:250px;" alt="">
+						</div>
+						<div class="uk-card-body">
+							<h3 class="uk-card-title">{{ deal.title }}</h3>
+							<p>{{ deal.price }} €</p>
+							<p class="uk-text-truncate">{{ deal.description }}<p>
+						</div>
+						<div class="uk-card-footer">
+							<a class="uk-button uk-button-primary uk-align-right" href="{{ path("deal_details", {id: deal.id}) }}">Details</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="today-deals uk-margin-medium-top">
+			<h3 class="uk-align-center">Today's hot deals</h3>
+			<div class="uk-child-width-1-3@m" uk-grid>
+				{% for deal in todayHotDeals %}
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<img src="{{ deal.image }}" class="uk-align-center" style="height:250px;" alt="">
+							</div>
+							<div class="uk-card-body">
+								<h3 class="uk-card-title">{{ deal.title }}</h3>
+								<p>{{ deal.price }} €</p>
+								<p class="uk-text-truncate">{{ deal.description }}<p>
+							</div>
+							<div class="uk-card-footer">
+								<a class="uk-button uk-button-primary uk-align-right" href="{{ path("deal_details", {id: deal.id}) }}">Details</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('home') }}
+{% endblock %}

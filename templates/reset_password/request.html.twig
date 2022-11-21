@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('log') }}
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    {{ form_start(requestForm, {'attr': {'class': 'log-form uk-card uk-card-default'}}) }}
+        <fieldset class="uk-fieldset">
+            <legend class="uk-legend log-form-legend">Reset your password</legend>
+            <div class="uk-margin">
+                {{ form_widget(requestForm.email, {'attr': {'class': 'uk-input', 'placeholder': 'Email'}}) }}
+                <div>
+                    <small>
+                        Enter your email address and we we will send you a
+                        link to reset your password.
+                    </small>
+                </div>
+            </div>
+            <button class="uk-button uk-button-primary log-form-submit">Send password reset email</button>
+        </fieldset>
+    {{ form_end(requestForm) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('log') }}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'user/index.html.twig' %}
+
+{% block section %}
+	<div id="modal-remove-account" uk-modal>
+		<div class="uk-modal-dialog uk-modal-body">
+			<h2 class="uk-modal-title">Attention !</h2>
+			<p>Toute suppression est définitive !</p>
+			<p class="uk-text-right">
+				<button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+				<button id="remove-account" data-id="{{ user.id }}" class="uk-button uk-button-danger" type="button">
+					<span uk-icon="icon: warning"></span>
+					Delete</button>
+			</p>
+		</div>
+	</div>
+
+	<div id="modal-set-infos" uk-modal>
+		<div
+			class="uk-modal-dialog uk-modal-body">
+			{# {{ form(form) }} #}
+			{{ form_start(form, {'attr': {'class': 'set-infos-form'}}) }}
+			<fieldset class="uk-fieldset">
+				<legend class="uk-legend">Set infos</legend>
+				<div class="uk-margin">
+					{{ form_widget(form.username, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'Username'
+                }}) }}
+				</div>
+				<div class="uk-margin">
+					{{ form_widget(form.email, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'Email'
+                }}) }}
+				</div>
+				<div class="uk-margin">
+					{{ form_widget(form.avatar, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'URL of your avatar'
+                }}) }}
+					<div class="uk-margin">
+						{{ form_widget(form.description, {'attr': {
+                    'class': 'uk-textarea set-infos-form-textarea',
+					'rows': '5',
+                    'placeholder': 'Type your description here'
+                }}) }}
+					</div>
+				</div>
+				<div class="uk-margin">
+					{{ form_widget(form.password, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'New Password'
+                }}) }}
+				</div>
+				<p class="uk-text-right">
+					<div class="uk-margin">
+						{{ form_widget(form.save, {'attr': {
+                    'class': 'uk-button uk-button-primary log-form-submit'
+                }}) }}
+					</div>
+				</p>
+			</fieldset>
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+	<div class="detail-user">
+		<img class="detail-user-avatar" src="{{ user.avatar }}" />
+		<h3>{{ user.username }}</h3>
+		<p>{{ user.email }}</p>
+		<p>{{ user.description }}</p>
+	</div>
+
+	<button class="uk-button uk-button-primary uk-margin-small-right" type="button" uk-toggle="target: #modal-set-infos">Modify my informations</button>
+	<button class="uk-button uk-button-danger uk-margin-small-right" type="button" uk-toggle="target: #modal-remove-account">
+		<span uk-icon="icon: warning"></span>
+		Delete this account</button>
+{% endblock %}

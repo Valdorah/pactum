@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign in
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('log') }}
+{% endblock %}
+
+{% block body %}
+		{# <h1>Sign in</h1> #}
+		{# {{ form(form) }} #}
+		{{ form_start(form, {'attr': {'class': 'log-form uk-card uk-card-default'}}) }}
+		<fieldset class="uk-fieldset">
+            <legend class="uk-legend log-form-legend">Create an account</legend>
+            <div class="uk-margin">
+                {{ form_widget(form.username, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'Username'
+                }}) }}
+            </div>
+            <div class="uk-margin">
+                {{ form_widget(form.email, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'Email'
+                }}) }}
+            </div>
+            <div class="uk-margin">
+                {{ form_widget(form.password, {'attr': {
+                    'class': 'uk-input',
+                    'placeholder': 'Password'
+                }}) }}
+            </div>
+            <div class="uk-margin">
+                {{ form_widget(form.save, {'attr': {
+                    'class': 'uk-button log-form-submit',
+                }}) }}
+            </div>
+		</fieldset>
+		{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('log') }}
+{% endblock %}

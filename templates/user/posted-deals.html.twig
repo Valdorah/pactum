@@ -1,0 +1,25 @@
+{% extends 'user/index.html.twig' %}
+
+{% block section %}
+	<h1>Posted Deals</h1>
+
+	<div class="uk-child-width-1-3@m" uk-grid>
+		{% for deal in deals %}
+			<div>
+				<div class="uk-card uk-card-default uk-card-small">
+					<div class="uk-card-media-top">
+						<img src="{{ deal.image }}" class="uk-align-center" style="height:250px;" alt="">
+					</div>
+					<div class="uk-card-body">
+						<h3 class="uk-card-title">{{ deal.title }}</h3>
+						<p>{{ deal.price }} €</p>
+						<p class="uk-text-truncate">{{ deal.description }}<p>
+					</div>
+					<div class="uk-card-footer">
+						<a class="uk-button uk-button-primary uk-align-right" href="{{ path("deal_details", {id: deal.id}) }}">Details</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

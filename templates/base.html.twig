@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" type="image/png" href="/img/scroll.png" />
+		<title>
+			{% block title %}Pactum
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar uk-navbar-container uk-margin uk-navbar" uk-navbar="">
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+					<li>
+                        <a class="uk-navbar-item uk-logo" href="{{ path('home') }}"><img style="height: 50px;" src="{{asset('img/scroll.png')}}">Pactum</a>
+                        <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="left: 0px; top: 80px;">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                            	<li>
+									<a href="{{ path('app_deals') }}">Hot deals</a>
+								<li>
+								<li>
+									<a href="{{ path('app_promos') }}">Hot promos</a>
+								</li>
+                            </ul>
+                        </div>
+                    </li>
+					<li>
+						<a class="uk-navbar-item uk-logo">Groups</a>
+                        <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="left: 0px; top: 80px;">
+                            <ul class="navbar-groups uk-nav uk-navbar-dropdown-nav">
+                            	{% for group in groups.groups %}
+									<li>
+										<a href="{{ path("group_details", {id: group.id}) }}">{{ group.name }}</a>
+									</li>
+								{% endfor %}
+                            </ul>
+                        </div>
+						
+						{# <a class="uk-navbar-toggle" href="#">Groups</a>
+						<div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+								<div class="uk-grid-small uk-flex-middle" uk-grid>
+										<div class="uk-width-expand">
+											{% for group in groups.groups %}
+												<a href="{{ path("group_details", {id: group.id}) }}">{{ group.name }}</a>
+											{% endfor %}
+										</div>
+								</div>
+						</div> #}
+					</li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+					<li class="uk-dark">
+						<a class="uk-navbar-toggle" href="#" uk-search-icon></a>
+						<div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+								<div class="uk-grid-small uk-flex-middle" uk-grid>
+										<div class="uk-width-expand">
+												<form class="uk-search uk-search-navbar uk-width-1-1" action="/deals" method="GET">
+														<input type="search" name="search" class="uk-search-input" placeholder="Search" autofocus>
+												</form>
+										</div>
+										<div class="uk-width-auto">
+												<a class="uk-navbar-dropdown-close" href="#" uk-close></a>
+										</div>
+								</div>
+						</div>
+					</li>
+					{% if is_granted("ROLE_USER") %}
+                    	<li>
+							<a href="{{ path("user") }}" aria-expanded="false"><img class="navbar-avatar" uk-tooltip={{ app.user.username }} src={{ app.user.avatar }} /></a>
+							<div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-right" style="left: 1000px; top: 80px;">
+								<ul class="uk-nav uk-navbar-dropdown-nav">
+									<li>
+										<a href="{{ path('create_deal') }}">Create deal/promo</a>
+									</li>
+									<li>
+										<a href="{{ path('app_logout') }}">Log out</a>
+									</li>
+								</ul>
+							</div>
+                    	</li>
+					{% else %}
+						<li>
+							<a href="{{ path('app_login') }}">Log in</a>
+						</li>
+					{% endif %}
+                </ul>
+            </div>
+        </nav>
+		{# <nav class="uk-navbar-container uk-margin">
+			<div class="navbar uk-container uk-container-expand">
+				<div class="uk-navbar">
+					<div class="uk-navbar-left">
+						{% if is_granted("ROLE_USER") %}
+							<ul class="uk-navbar-nav">
+								<li>
+									<span class="uk-text-large">
+										<a href="{{ path("user") }}"><img class="navbar-avatar" uk-tooltip={{ app.user.username }} src={{ app.user.avatar }} /></a>
+									</span>
+								</li>
+							</ul>
+						{% endif %}
+						<ul class="uk-navbar-nav">
+							<li>
+								<a href="{{ path('app_deals') }}">Hot deals</a>
+							</li>
+							<li>
+								<a href="{{ path('app_promos') }}">Hot promos</a>
+							</li>
+							<li class="uk-dark">
+								<a class="uk-navbar-toggle" href="#">Groups</a>
+								<div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+
+										<div class="uk-grid-small uk-flex-middle" uk-grid>
+												<div class="uk-width-expand">
+													{% for group in groups.groups %}
+														<a href="{{ path("group_details", {id: group.id}) }}">{{ group.name }}</a>
+													{% endfor %}
+												</div>
+										</div>
+
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="uk-navbar-center">
+						<a class="uk-navbar-item uk-logo" href="{{ path('home') }}"><img style="height: 50px;" src="{{asset('img/scroll.png')}}">Pactum</a>
+					</div>
+					<div class="uk-navbar-right">
+						<ul class="uk-navbar-nav">
+							{% if is_granted("ROLE_USER") %}
+								<li>
+									<a href="{{ path('create_deal') }}">Create deal/promo</a>
+								</li>
+								<li>
+									<a href="{{ path('app_logout') }}">Log out</a>
+								</li>
+							{% else %}
+								<li>
+									<a href="{{ path('app_register') }}">Register</a>
+								</li>
+								<li>
+									<a href="{{ path('app_login') }}">Log in</a>
+								</li>
+							{% endif %}
+							<li class="uk-dark">
+								<a class="uk-navbar-toggle" href="#" uk-search-icon></a>
+								<div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+
+										<div class="uk-grid-small uk-flex-middle" uk-grid>
+												<div class="uk-width-expand">
+														<form class="uk-search uk-search-navbar uk-width-1-1" action="/deals" method="GET">
+																<input type="search" name="search" class="uk-search-input" placeholder="Search" autofocus>
+														</form>
+												</div>
+												<div class="uk-width-auto">
+														<a class="uk-navbar-dropdown-close" href="#" uk-close></a>
+												</div>
+										</div>
+
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav> #}
+		{% block body %}{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</body>
+</html>

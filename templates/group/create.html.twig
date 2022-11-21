@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DealController!
+{% endblock %}
+
+{# {% block stylesheets %}
+	{{ encore_entry_link_tags('dealCreate') }}
+{% endblock %} #}
+
+{% block body %}
+	<div class="uk-container uk-container-small">
+		{{ form_start(form, {'attr':{
+            'class':'create-group-form'
+        }})
+				    }}
+		<fieldset class="uk-fieldset">
+			<legend class="uk-legend">Create Group</legend>
+
+			<div class="uk-margin">
+				{{ form_widget(form.name, {'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Name'
+                }})
+							}}
+			</div>
+			
+			<div class="uk-margin">
+				{{ form_widget(form.save, { 'attr':{
+                    'class':'create-deal-form-submit uk-button',
+                }})
+							}}
+			</div>
+
+		</fieldset>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+
+{# {% block javascripts %}
+	{{ encore_entry_script_tags('dealCreate') }}
+{% endblock %} #}

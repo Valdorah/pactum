@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('log') }}
+{% endblock %}
+
+{% block body %}
+    {{ form_start(resetForm, {'attr': {'class': 'log-form uk-card uk-card-default'}}) }}
+        <fieldset class="uk-fieldset">
+            <legend class="uk-legend log-form-legend">Reset your password</legend>
+            {{ form_row(resetForm.plainPassword) }}
+            <button class="uk-button uk-button-primary log-form-submit">Reset password</button>
+        </fieldset>
+    {{ form_end(resetForm) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('log') }}
+{% endblock %}

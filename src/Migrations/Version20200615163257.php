@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20200615163257 extends AbstractMigration
+{
+    public function getDescription() : string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema) : void
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('ALTER TABLE deal ADD deal_user_id INT NOT NULL');
+        $this->addSql('ALTER TABLE deal ADD CONSTRAINT FK_E3FEC11643745B1D FOREIGN KEY (deal_user_id) REFERENCES user (user_id)');
+        $this->addSql('CREATE INDEX IDX_E3FEC11643745B1D ON deal (deal_user_id)');
+    }
+
+    public function down(Schema $schema) : void
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('ALTER TABLE deal DROP FOREIGN KEY FK_E3FEC11643745B1D');
+        $this->addSql('DROP INDEX IDX_E3FEC11643745B1D ON deal');
+        $this->addSql('ALTER TABLE deal DROP deal_user_id');
+    }
+}

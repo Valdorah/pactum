@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create deal/promo
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('dealCreate') }}
+{% endblock %}
+
+{% block body %}
+	<div class="uk-container uk-container-small">
+		{{ form_start(form, {'attr':{
+            'class':'create-deal-form'
+        }})
+				    }}
+		<fieldset class="uk-fieldset">
+			<legend class="uk-legend">Create Deal/Promo</legend>
+
+			<div class="uk-margin">
+				{{ form_widget(form.title, {'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Title'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.description, { 'attr':{
+                    'class':'uk-textarea',
+                    'rows':'5',
+                    'placeholder':'Add a description'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.url, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'URL of the product'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.image, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'URL of one image'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.price, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Price'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.normalPrice, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Normal Price'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.deliveryCost, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Delivery Cost'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.discountCode, { 'attr':{
+                    'class':'uk-input',
+                    'placeholder':'Discount Code'
+                }})
+							}}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.groups) }}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.type) }}
+			</div>
+			<div class="uk-margin">
+				{{ form_widget(form.save, { 'attr':{
+                    'class':'create-deal-form-submit uk-button',
+                }})
+							}}
+			</div>
+
+		</fieldset>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('dealCreate') }}
+{% endblock %}

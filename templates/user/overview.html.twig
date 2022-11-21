@@ -1,0 +1,10 @@
+{% extends 'user/index.html.twig' %}
+
+{% block section %}
+	<h1>Overview</h1>
+
+	<p class="uk-text-large"><span class="uk-text-primary">{{nbPostedDeals}}</span> posted deals.</p>
+	<p class="uk-text-large"><span class="uk-text-primary">{{nbComments}}</span> comments write.</p>
+	<p class="uk-text-large">Your highest mark is <span class="uk-text-primary">{{maxMark}}</span>.</p>
+	<p class="uk-text-large"><span class="uk-text-primary">{{pourcentageHotDeals}} %</span> of your deals are hot.</p>
+{% endblock %}

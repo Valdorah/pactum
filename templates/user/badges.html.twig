@@ -1,0 +1,36 @@
+{% extends 'user/index.html.twig' %}
+
+{% block section %}
+	<h1>My badges</h1>
+
+	<div class="uk-child-width-1-1@m" uk-grid>
+		<div>
+			<div class="uk-card uk-card-default uk-card-body">
+				<h3 class="uk-card-title">{% if badgeComment != null %}<span uk-icon="icon: check; ratio: 2"></span>{% endif %} Comments {{ nbComments }}/10</h3>
+				<progress id="js-progressbar" class="uk-progress" value="{{ nbComments }}" max="10"></progress>
+				{% if badgeComment != null %}
+					<p>{{ badgeComment.title }} : {{ badgeComment.description }}</p>
+				{% endif %}
+			</div>
+		</div>
+		<div>
+			<div class="uk-card uk-card-default uk-card-body">
+				<h3 class="uk-card-title">{% if badgeMarks != null %}<span uk-icon="icon: check; ratio: 2"></span>{% endif %} Marks {{ nbMarks }}/10</h3>
+				<progress id="js-progressbar" class="uk-progress" value="{{ nbMarks }}" max="10"></progress>
+				{% if badgeMarks != null %}
+					<p>{{ badgeMarks.title }} : {{ badgeMarks.description }}</p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div>
+			<div class="uk-card uk-card-default uk-card-body">
+				<h3 class="uk-card-title">{% if badgePosted != null %}<span uk-icon="icon: check; ratio: 2"></span>{% endif %} Posted deals {{ nbDeals }}/10</h3>
+				<progress id="js-progressbar" class="uk-progress" value="{{ nbDeals }}" max="10"></progress>
+				{% if badgePosted != null %}
+					<p>{{ badgePosted.title }} : {{ badgePosted.description }}</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
